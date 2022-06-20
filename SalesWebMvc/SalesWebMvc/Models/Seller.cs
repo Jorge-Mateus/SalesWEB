@@ -9,11 +9,16 @@ namespace SalesWebMVC.Models
     public class Seller
     {
         public int Id { get; set; }
+
+        [Required]
+        [StringLength(255, MinimumLength = 3, ErrorMessage ="{0} do nome é entre {2} e {1}")]
         public string Nome { get; set; }
 
+        [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-
+        
+        [Required]
         [Display(Name = "Birth Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString ="{0:dd/MM/YYYY}")]
@@ -21,9 +26,12 @@ namespace SalesWebMVC.Models
 
         [Display(Name = "Base Salary")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Range(100.0, 5000.0, ErrorMessage ="Salário entre {1} e {2}")]
         public double BaseSalary { get; set; }
         
+        [Required]
         public Department Department { get; set; }
+        [Required]
         public int DepartmentId { get; set; }
         public ICollection<SalesRecord> Sales { get; set; } = new List<SalesRecord>();
 
